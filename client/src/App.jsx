@@ -52,17 +52,22 @@ function App() {
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           <Header />
-          <input
-            type="text"
-            className="input input-bordered"
-            value={inputMsg}
-            onChange={(e) => setInputMsg(e.target.value)}
-          />
-          <button className="btn btn-primary" onClick={getMessage}>
-            Send
-          </button>
 
-          <p>{streamData}</p>
+          <div>
+            <p>{streamData}</p>
+          </div>
+
+          <div>
+            <input
+              type="text"
+              className="input input-bordered"
+              value={inputMsg}
+              onChange={(e) => setInputMsg(e.target.value)}
+            />
+            <button className="btn btn-primary" onClick={getMessage}>
+              Send
+            </button>
+          </div>
         </div>
         <div className="drawer-side">
           <label
@@ -71,7 +76,7 @@ function App() {
             className="drawer-overlay"
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-            <Nav/>
+            <Nav />
           </ul>
         </div>
       </div>
