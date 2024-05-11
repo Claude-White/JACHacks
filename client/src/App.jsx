@@ -1,53 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
 
 function App() {
-  //const [aiReply, setAiReply] = useState();
   const [inputMsg, setInputMsg] = useState("");
-  const [streamData, setStreamData] = useState("");
+  const [aiReply, setAiReply] = useState("");
+  const [conversation, setConversation] = useState([]);
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [conversation]);
 
   function getMessage() {
-    if (inputMsg != undefined) {
-      const eventSource = new EventSource(`/message/${inputMsg}`);
-      eventSource.onmessage = (event) => {
-        setStreamData((prevData) => prevData + event.data + " ");
-      };
-      return () => {
-        eventSource.close();
-      };
-
-      // fetch(`/message/${inputMsg}`)
-      //   .then((res) => res.text())
-      //   .then((data) => {
-      //     setAiReply(data);
-      //     const conversationData = {
-      //       input: inputMsg,
-      //       output: data,
-      //     };
-      //     fetch("/userConversation.json")
-      //       .then((res) => res.json())
-      //       .then((existingData) => {
-      //         const updatedData = {
-      //           messages: [
-      //             ...existingData.messages,
-      //             { message: conversationData },
-      //           ],
-      //         };
-
-      //         fetch("/userConversation.json", {
-      //           method: "PUT",
-      //           headers: {
-      //             "Content-Type": "application/json",
-      //           },
-      //           body: JSON.stringify(updatedData),
-      //         });
-      //       });
-      //   });
+    if (inputMsg.trim() !== "") {
+      fetch(`/message/${inputMsg}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setConversation((prevConversation) => [...prevConversation, data]);
+          setInputMsg("");
+        });
     }
   }
+
   return (
     <>
+      <Header />
+      <div className="chat-container" ref={chatContainerRef}>
+        {conversation.map((item, index) => (
+          <div key={index}>
+            <p className="user-message">{item.input}</p>
+            <p className="ai-message">{item.output}</p>
+          </div>
+        ))}
+      </div>
+      <div className="input-container">
+        <input
+          type="text"
+          className="input input-bordered"
+          value={inputMsg}
+          onChange={(e) => setInputMsg(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              getMessage();
+            }
+          }}
+        />
+        <button className="btn btn-primary" onClick={getMessage}>
+          Send
+        </button>
+      </div>
       <div className="drawer">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
