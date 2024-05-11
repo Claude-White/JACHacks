@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -10,10 +11,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body data-theme="sunset" className={`${inter.className} h-screen`}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body data-theme="sunset" className={`${inter.className} h-screen`}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
