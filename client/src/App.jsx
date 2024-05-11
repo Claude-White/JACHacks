@@ -24,6 +24,7 @@ function App() {
 
   return (
     <>
+      <Header />
       <div className="chat-container" ref={chatContainerRef}>
         {conversation.map((item, index) => (
           <div key={index}>
