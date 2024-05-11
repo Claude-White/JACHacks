@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import Nav from "../components/Nav";
+import Header from "@/app/components/Header";
+import Nav from "@/app/components/Nav";
 
 const page = () => {
   return (
@@ -8,7 +8,7 @@ const page = () => {
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content h-full">
           <Header />
-          
+
         </div>
         <div className="drawer-side">
           <label
