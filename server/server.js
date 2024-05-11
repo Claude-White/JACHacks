@@ -33,14 +33,6 @@ app.get("/message/:msg", async (req, res) => {
     clearInterval(interval);
     res.end();
   }, 10000);
-
-  fs.readFile(moviesJSON, (err, data) => {
-    if (err) {
-      throw err;
-    } else {
-      const 
-    }
-  });
 });
 
 app.listen(port, () => {

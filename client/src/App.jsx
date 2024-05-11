@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Header from "./components/Header";
+import Nav from "./components/Nav";
 
 function App() {
   //const [aiReply, setAiReply] = useState();
@@ -47,17 +48,33 @@ function App() {
   }
   return (
     <>
-      <input
-        type="text"
-        className="input input-bordered"
-        value={inputMsg}
-        onChange={(e) => setInputMsg(e.target.value)}
-      />
-      <button className="btn btn-primary" onClick={getMessage}>
-        Send
-      </button>
+      <div className="drawer">
+        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content">
+          <Header />
+          <input
+            type="text"
+            className="input input-bordered"
+            value={inputMsg}
+            onChange={(e) => setInputMsg(e.target.value)}
+          />
+          <button className="btn btn-primary" onClick={getMessage}>
+            Send
+          </button>
 
-      <p>{streamData}</p>
+          <p>{streamData}</p>
+        </div>
+        <div className="drawer-side">
+          <label
+            htmlFor="my-drawer"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+          ></label>
+          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+            <Nav/>
+          </ul>
+        </div>
+      </div>
     </>
   );
 }
