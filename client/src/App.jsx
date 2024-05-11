@@ -53,23 +53,6 @@ function App() {
       <div className="drawer">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
-          <Header />
-
-          <div>
-            <p>{streamData}</p>
-          </div>
-
-          <div>
-            <input
-              type="text"
-              className="input input-bordered"
-              value={inputMsg}
-              onChange={(e) => setInputMsg(e.target.value)}
-            />
-            <button className="btn btn-primary" onClick={getMessage}>
-              Send
-            </button>
-          </div>
         </div>
         <div className="drawer-side">
           <label
