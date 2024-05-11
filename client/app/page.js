@@ -30,12 +30,19 @@ export default function Home() {
         <div className="drawer-content h-full">
           <Header />
           <div
-            className="chat-container h-[80%] bg-gray-700 text-white"
+            className="chat-container h-[80%] bg-gray-700 text-white p-4 mx-10"
             ref={chatContainerRef}>
             {conversation.map((item, index) => (
               <div key={index}>
-                <p className="user-message">{item.input}</p>
-                <p className="ai-message">{item.output}</p>
+                
+                <div className="chat chat-end">
+                <div className="chat-bubble p-4">{item.input}</div>
+                </div>
+
+                <div className="chat chat-start">
+                 <div className="chat-bubble p-4">{item.output}</div>
+                </div>
+
               </div>
             ))}
           </div>

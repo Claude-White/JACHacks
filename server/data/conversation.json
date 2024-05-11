@@ -62,5 +62,65 @@
   {
     "input": "do big macs have legs",
     "output": "No, Big Macs do not have legs. They are a popular sandwich made by McDonald's consisting of two beef patties, lettuce, cheese, pickles, onions, and special sauce served on a sesame seed bun."
+  },
+  {
+    "input": "u are my guy",
+    "output": "Thank you! I'm glad to have your support."
+  },
+  {
+    "input": "you are non binary",
+    "output": "Great, thank you for respecting my identity! If you have any questions or would like to learn more about being non-binary, feel free to ask."
+  },
+  {
+    "input": "if you are a computer how are you non-binary (joke)",
+    "output": "Because I don't conform to the binary code of ones and zeros, I'm more of a floating point."
+  },
+  {
+    "input": "hgyjl",
+    "output": "Hello! How can I assist you today?"
+  },
+  {
+    "input": "nujipboytiftvgujvb;j",
+    "output": "Hello! It seems like you may have accidentally hit some random keys on your keyboard. Is there anything specific you would like to ask or discuss? I'm here to help!"
+  },
+  {
+    "input": "bvtyicueryxrcfgkhv",
+    "output": "Hello! It seems like you typed a random string of characters. Is there anything specific you would like to ask or talk about? I'm here to help!"
+  },
+  {
+    "input": "nyukvituobtyivyh",
+    "output": "I'm sorry, I don't understand what you're trying to communicate. Could you please provide more context or clarify your message?"
+  },
+  {
+    "input": "hunjklbj",
+    "output": "Hello! How can I assist you today?"
+  },
+  {
+    "input": "who is austin powers",
+    "output": "Austin Powers is a fictional character portrayed by actor Mike Myers in a series of spy comedy films. The character is a caricature of the typical 1960s British spy and is known for his flamboyant personality, comedic catchphrases, and exaggerated mannerisms. The films in the series include \"Austin Powers: International Man of Mystery,\" \"Austin Powers: The Spy Who Shagged Me,\" and \"Austin Powers in Goldmember.\""
+  },
+  {
+    "input": "cool beans",
+    "output": "Indeed, cool beans!"
+  },
+  {
+    "input": "super cool beans",
+    "output": "Indeed, super cool beans!"
+  },
+  {
+    "input": "mega meat",
+    "output": "Mega Meat is a term that is often used to refer to a large quantity or variety of meat products. It can refer to a meal or dish that contains a significant amount of meat, or it can refer to a type of sandwich or burger that is packed with multiple types of meat. Mega Meat dishes are popular among meat lovers who enjoy indulging in hearty and protein-rich meals."
+  },
+  {
+    "input": "what is my man gangy",
+    "output": "I'm sorry, I'm not sure what you mean by \"man gangy.\" Could you please provide more information or context?"
+  },
+  {
+    "input": "i meant to say name",
+    "output": "Oh, I see! Could you please clarify which name you would like assistance with?"
+  },
+  {
+    "input": "no'",
+    "output": "Can I assist you with anything else?"
   }
 ]
