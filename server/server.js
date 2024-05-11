@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import express from "express";
+import cors from "cors";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -13,6 +14,7 @@ const openai = new OpenAI({
   apiKey: "sk-proj-RjXMpwoKyjcT0VgUpOHET3BlbkFJSpH6RtCl6u8YmuvT8BoL",
 });
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client/public")));
 
@@ -51,7 +53,6 @@ app.get("/message/:msg", async (req, res) => {
           console.error(err);
           return res.status(500).json({ error: "Internal Server Error" });
         }
-
         res.json(conversation);
       }
     );

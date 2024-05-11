@@ -14,5 +14,53 @@
   {
     "input": "what is my name",
     "output": "I'm sorry, I do not know your name. Please tell me your name so that I can address you correctly."
+  },
+  {
+    "input": "what is a big mac",
+    "output": "A Big Mac is a popular hamburger sold by the fast-food chain McDonald's. It consists of two beef patties, special sauce, lettuce, cheese, pickles, and onions on a sesame seed bun."
+  },
+  {
+    "input": "what is a mac",
+    "output": "A Mac is a type of personal computer produced by the multinational technology company Apple Inc. Mac computers are known for their sleek design, high performance, and user-friendly operating system called macOS. They are popular among creative professionals, students, and individuals who prefer the Apple ecosystem."
+  },
+  {
+    "input": "what is a trump",
+    "output": "Trump is a surname that belongs to former President Donald Trump and his family. It can also be used as a verb meaning to surpass or outdo someone or something."
+  },
+  {
+    "input": "who is trump",
+    "output": "Donald Trump is a businessman, television personality, and former President of the United States. He was elected as the 45th President in 2016 and served until 2021. Trump is known for his controversial statements and policies during his time in office."
+  },
+  {
+    "input": "who is trump",
+    "output": "Donald Trump is a businessman, television personality, and politician who served as the 45th President of the United States from 2017 to 2021. He was born on June 14, 1946, in Queens, New York City. Trump is known for his controversial statements and policies during his presidency. Prior to his political career, he was a successful real estate developer and television personality, best known for hosting the reality TV show The Apprentice."
+  },
+  {
+    "input": "what are bots",
+    "output": "Bots, short for robots, are software applications that perform automated tasks over the internet. These tasks can range from simple to complex, such as answering customer service queries, collecting data, or performing repetitive tasks on social media platforms. Bots can be programmed to operate independently or be controlled by a human operator. Some bots are designed for helpful purposes, while others may be used for malicious activities like spreading spam or manipulating online discussions."
+  },
+  {
+    "input": "what are big macs",
+    "output": "Big Macs are a popular hamburger sandwich sold at McDonald's fast food restaurants. They consist of two beef patties, special sauce, lettuce, cheese, pickles, and onions, all sandwiched between a three-part sesame seed bun. Big Macs are one of McDonald's most well-known menu items and have been a staple of the chain's offerings since they were first introduced in 1967."
+  },
+  {
+    "input": "${inputMsg}",
+    "output": "Hello! How can I assist you today?"
+  },
+  {
+    "input": "what is pages",
+    "output": "Pages is a word processing software application developed by Apple Inc. It is part of the iWork suite, which also includes Keynote and Numbers. Pages allows users to create and edit documents, such as letters, reports, resumes, and flyers, with a variety of formatting options and templates. It is available for macOS and iOS devices."
+  },
+  {
+    "input": "what are big macs",
+    "output": "Big Macs are a popular menu item at McDonald's, consisting of two beef patties, special sauce, lettuce, cheese, pickles, onions, and a sesame seed bun. It is one of McDonald's signature sandwiches and is known for its iconic jingle \"Two all-beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame-seed bun.\""
+  },
+  {
+    "input": "what are big big macs",
+    "output": "There is no such thing as \"big big macs.\" The Big Mac is a popular sandwich sold at McDonald's consisting of two beef patties, special sauce, lettuce, cheese, pickles, and onions on a sesame seed bun."
+  },
+  {
+    "input": "do big macs have legs",
+    "output": "No, Big Macs do not have legs. They are a popular sandwich made by McDonald's consisting of two beef patties, lettuce, cheese, pickles, onions, and special sauce served on a sesame seed bun."
   }
 ]
