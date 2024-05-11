@@ -25,8 +25,12 @@ function App() {
 
   return (
     <>
-      <Header />
-      <div className="chat-container" ref={chatContainerRef}>
+      <div className="drawer h-full">
+        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content h-full">
+
+        <Header />
+      <div className="chat-container h-[80%] bg-gray-700 text-white" ref={chatContainerRef}>
         {conversation.map((item, index) => (
           <div key={index}>
             <p className="user-message">{item.input}</p>
@@ -34,10 +38,10 @@ function App() {
           </div>
         ))}
       </div>
-      <div className="input-container">
+      <div className="input-container p-4 flex justify-center items-center">
         <input
           type="text"
-          className="input input-bordered"
+          className="input input-bordered w-[50%] m-3"
           value={inputMsg}
           onChange={(e) => setInputMsg(e.target.value)}
           onKeyPress={(e) => {
@@ -50,9 +54,7 @@ function App() {
           Send
         </button>
       </div>
-      <div className="drawer">
-        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
+
         </div>
         <div className="drawer-side">
           <label

@@ -6,5 +6,13 @@
   {
     "input": "I want to learn!!",
     "output": "That's great to hear! Learning is a lifelong journey. What would you like to learn about?"
+  },
+  {
+    "input": "pee, where does it come from",
+    "output": "Urine, commonly known as pee, is produced in the kidneys. The kidneys filter waste products and excess fluids from the blood to create urine. Urine travels down the ureters to the bladder, where it is stored until it is expelled from the body through the urethra."
+  },
+  {
+    "input": "what is my name",
+    "output": "I'm sorry, I do not know your name. Please tell me your name so that I can address you correctly."
   }
 ]

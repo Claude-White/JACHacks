@@ -4,7 +4,7 @@ const Header = () => {
       <div className="flex flex-1">
         <label
           htmlFor="my-drawer"
-          className="btn btn-primary drawer-button mr-4" 
+          className="btn btn-ghost drawer-button mr-4" 
         >
           Open drawer
         </label>
