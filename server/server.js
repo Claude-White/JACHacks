@@ -2,6 +2,9 @@ import OpenAI from "openai";
 import express from "express";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const port = 8888;
@@ -11,35 +14,43 @@ const openai = new OpenAI({
 });
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "client/public")));
 
 app.get("/message/:msg", async (req, res) => {
-  res.writeHead(200, {
-    "Content-Type": "text/event-stream",
-    "Cache-Control": "no-cache",
-    Connection: "keep-alive",
-  });
+  const inputMsg = req.params.msg;
 
   const completion = await openai.chat.completions.create({
-    messages: [{ role: "user", content: req.params.msg }],
+    messages: [{ role: "user", content: inputMsg }],
     model: "gpt-3.5-turbo",
-    stream: true,
   });
 
-  const interval = setInterval(() => {
-    res.write(completion.choices[0].message.content);
-  }, 1000);
+  const aiReply = completion.choices[0].message.content;
 
-  setTimeout(() => {
-    clearInterval(interval);
-    res.end();
-  }, 10000);
+  const conversation = {
+    input: inputMsg,
+    output: aiReply,
+  };
 
-  fs.readFile(moviesJSON, (err, data) => {
+  fs.readFile("data/conversation.json", "utf8", (err, data) => {
     if (err) {
-      throw err;
-    } else {
-      const 
+      console.error(err);
+      return res.status(500).json({ error: "Internal Server Error" });
     }
+
+    let conversations = [];
+    if (data) {
+      conversations = JSON.parse(data);
+    }
+    conversations.push(conversation);
+
+    fs.writeFile("data/conversation.json", JSON.stringify(conversations, null, 2), (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+
+      res.json(conversation);
+    });
   });
 });
 

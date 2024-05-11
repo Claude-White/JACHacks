@@ -1,0 +1,10 @@
+[
+  {
+    "input": "hello",
+    "output": "Hello! How can I assist you today?"
+  },
+  {
+    "input": "I want to learn!!",
+    "output": "That's great to hear! Learning is a lifelong journey. What would you like to learn about?"
+  }
+]
