@@ -35,8 +35,7 @@ app.get("/message/:msg", async (req, res) => {
 
   fs.readFile("data/conversation.json", "utf8", (err, data) => {
     if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Internal Server Error" });
+      throw err;
     }
 
     let conversations = [];
@@ -45,17 +44,23 @@ app.get("/message/:msg", async (req, res) => {
     }
     conversations.push(conversation);
 
-    fs.writeFile(
-      "data/conversation.json",
-      JSON.stringify(conversations, null, 2),
-      (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).json({ error: "Internal Server Error" });
-        }
-        res.json(conversation);
+    fs.writeFile("data/conversation.json", JSON.stringify(conversations, null, 2), (err) => {
+      if (err) {
+        throw err;
       }
-    );
+      res.json(conversation);
+    });
+  });
+});
+
+app.get("/conversation", (req, res) => {
+  fs.readFile("data/conversation.json", "utf8", (err, data) => {
+    if (err) {
+      throw err;
+    }
+
+    const conversations = data ? JSON.parse(data) : [];
+    res.json(conversations);
   });
 });
 

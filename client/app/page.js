@@ -10,6 +10,13 @@ export default function Home() {
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
+    fetch("http://localhost:8888/conversation")
+      .then((res) => res.json())
+      .then((data) => {
+        setConversation(data);
+      });
+  }, []);
+  useEffect(() => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   }, [conversation]);
 
@@ -23,23 +30,22 @@ export default function Home() {
         });
     }
   }
+
   return (
-    <main className="h-full">
+    <main className="h-screen">
       <div className="drawer h-full">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content h-full">
+        <div className="drawer-content flex flex-col">
           <Header />
-          <div
-            className="chat-container h-[80%] bg-gray-700 text-white"
-            ref={chatContainerRef}>
+          <div className="flex-grow overflow-y-auto bg-gray-700 text-white p-4" ref={chatContainerRef}>
             {conversation.map((item, index) => (
               <div key={index}>
-                <p className="user-message">{item.input}</p>
-                <p className="ai-message">{item.output}</p>
+                <p>{item.input}</p>
+                <p>{item.output}</p>
               </div>
             ))}
           </div>
-          <div className="input-container p-4 flex justify-center items-center">
+          <div className="p-4 flex justify-center items-center">
             <input
               type="text"
               className="input input-bordered w-[50%] m-3"
@@ -57,11 +63,8 @@ export default function Home() {
           </div>
         </div>
         <div className="drawer-side">
-          <label
-            htmlFor="my-drawer"
-            aria-label="close sidebar"
-            className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+          <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+          <ul className="menu p-4 w-80 bg-base-200 text-base-content">
             <Nav />
           </ul>
         </div>
