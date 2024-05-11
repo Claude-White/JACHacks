@@ -43,14 +43,18 @@ app.get("/message/:msg", async (req, res) => {
     }
     conversations.push(conversation);
 
-    fs.writeFile("data/conversation.json", JSON.stringify(conversations, null, 2), (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
+    fs.writeFile(
+      "data/conversation.json",
+      JSON.stringify(conversations, null, 2),
+      (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: "Internal Server Error" });
+        }
 
-      res.json(conversation);
-    });
+        res.json(conversation);
+      }
+    );
   });
 });
 
