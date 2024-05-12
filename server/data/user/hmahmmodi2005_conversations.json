@@ -1,1 +1,16 @@
-{}
+{
+  "Computer-Science": [
+    {
+      "input": "Could you tell me about the spice trade",
+      "output": "I'm sorry, but the spice trade is not related to the field of Computer Science. If you have any questions related to Computer Science, programming, algorithms, or any other related topics, feel free to ask!",
+      "messageDate": "2024-05-12, 6:23:46 a.m."
+    }
+  ],
+  "History": [
+    {
+      "input": "give me an algorithm to sort through an unordered list as efficiently as possible",
+      "output": "I'm here to help you with History-related questions. If you have any questions about historical events, figures, or periods, feel free to ask!",
+      "messageDate": "2024-05-12, 6:24:52 a.m."
+    }
+  ]
+}
