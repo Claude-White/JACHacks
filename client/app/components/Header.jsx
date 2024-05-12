@@ -15,7 +15,9 @@ const Header = () => {
         <label htmlFor="my-drawer" className="btn btn-ghost drawer-button mr-4">
           <FaBars size={28} />
         </label>
-        <h1 className="text-4xl"><Link href="../home">Kahoot But Worse</Link></h1>
+        <h1 className="text-4xl">
+          <Link href="/">Kahoot But Worse</Link>
+        </h1>
       </div>
       <SignedOut>
         <SignInButton>

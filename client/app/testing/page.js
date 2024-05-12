@@ -42,17 +42,15 @@ export default function Home() {
             ref={chatContainerRef}>
             {conversation.map((item, index) => (
               <div key={index}>
-                
                 <div className="chat chat-end">
-                <div className="chat-bubble p-4 my-6">{item.input}</div>
-                {item.messageDate}
+                  <div className="chat-bubble p-4 my-6">{item.input}</div>
+                  {item.messageDate}
                 </div>
 
                 <div className="chat chat-start">
-                 <div className="chat-bubble p-4">{item.output}</div>
-                 {item.messageDate}
+                  <div className="chat-bubble p-4">{item.output}</div>
+                  {item.messageDate}
                 </div>
-
               </div>
             ))}
           </div>
@@ -74,7 +72,10 @@ export default function Home() {
           </div>
         </div>
         <div className="drawer-side">
-          <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+          <label
+            htmlFor="my-drawer"
+            aria-label="close sidebar"
+            className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-200 text-base-content">
             <Nav />
           </ul>
