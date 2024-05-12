@@ -15,6 +15,12 @@ export default function ChatRoom() {
 
   useEffect(() => {
     if (isLoaded && user && className) {
+      console.log("111111111111111111111111")
+      console.log("className: " + className)
+      console.log("user: " + user)
+
+      console.log("username: " + user.username)
+
       fetch(`http://localhost:8888/conversations/${className}/${user.username}`)
         .then((res) => res.json())
         .then((data) => {
@@ -40,49 +46,43 @@ export default function ChatRoom() {
 
   return (
     <main className="h-screen">
-      <div className="drawer h-full">
-        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col">
-          <Header />
-          <div className="chat-container bg-gray-700 text-white p-4 mx-10 min-h-[80vh] overflow-y-auto" ref={chatContainerRef}>
-            {conversation.map((item, index) => (
-              <div key={index}>
-                <div className="chat chat-end">
-                  <div className="chat-bubble p-4 my-6">{item.input}</div>
-                  {item.messageDate}
+    <Header />
+    <header className="bg-base-100">
+      <h1>njuk</h1>
+    </header>
+    <div
+        className="chat-container bg-gray-700 text-white p-4 mx-10 min-h-[80vh]"
+        ref={chatContainerRef}>
+        {conversation.map((item, index) => (
+            <div key={index}>
+                <div className="chat chat-end grid-rows-[1fr_20px]">
+                    <div className="chat-bubble p-4 my-3">{item.input}</div>
+                    <div className="row-span-2 col-span-2 text-sm">{item.messageDate}</div>
                 </div>
 
-                <div className="chat chat-start">
-                  <div className="chat-bubble p-4">{item.output}</div>
-                  {item.messageDate}
+                <div className="chat chat-start grid-rows-[1fr_20px]">
+                    <div className="chat-bubble p-4 my-3">{item.output}</div>
+                    <div className="row-span-2 col-span-2 text-sm">{item.messageDate}</div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <div className="p-4 flex justify-center items-center">
-            <input
-              type="text"
-              className="input input-bordered w-[50%] m-3"
-              value={inputMsg}
-              onChange={(e) => setInputMsg(e.target.value)}
-              onKeyPress={(e) => {
+            </div>
+        ))}
+    </div>
+    <div className="p-4 flex justify-center items-center">
+        <input
+            type="text"
+            className="input input-bordered w-[50%] m-3"
+            value={inputMsg}
+            onChange={(e) => setInputMsg(e.target.value)}
+            onKeyPress={(e) => {
                 if (e.key === "Enter") {
-                  getMessage();
+                    getMessage();
                 }
-              }}
-            />
-            <button className="btn btn-primary" onClick={getMessage}>
-              Send
-            </button>
-          </div>
-        </div>
-        <div className="drawer-side">
-          <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 bg-base-200 text-base-content">
-            <Nav />
-          </ul>
-        </div>
-      </div>
-    </main>
+            }}
+        />
+        <button className="btn btn-primary" onClick={getMessage}>
+            Send
+        </button>
+    </div>
+</main>
   );
 }

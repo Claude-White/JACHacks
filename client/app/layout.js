@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
           <div className="drawer h-full">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content h-full">{children}</div>
-            <div className="drawer-side">
+            <div className="drawer-side z-20">
               <label
                 htmlFor="my-drawer"
                 aria-label="close sidebar"

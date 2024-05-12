@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="flex items-center p-2">
+    <header className="flex items-center p-2 z-10 fixed bg-base-100 w-full">
       <div className="flex flex-1">
         <label htmlFor="my-drawer" className="btn btn-ghost drawer-button mr-4">
           <FaBars size={28} />

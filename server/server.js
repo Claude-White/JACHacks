@@ -64,8 +64,12 @@ app.get("/conversations/:class/:username", (req, res) => {
   const className = req.params.class;
   const username = req.params.username;
 
+  if(!fs.existsSync(`data/user/${username}_conversations.json`)) {
+    fs.writeFileSync(`data/user/${username}_conversations.json`, "{}");
+  }
+
   fs.readFile(`data/user/${username}_conversations.json`, "utf8", (err, data) => {
-    if (err && err.code !== "ENOENT") {
+    if (err) {
       throw err;
     }
 
