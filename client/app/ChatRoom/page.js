@@ -44,7 +44,7 @@ export default function ChatRoom() {
     <main className="h-full">
       <Header />
       <div
-        className="p-4 pt-16 mx-10 mb-32 text-white bg-gray-700 rounded-lg chat-container"
+        className="p-4 pt-16 mx-10 mb-32 text-white bg-gray-700 rounded-lg min-h-[88%] chat-container"
         ref={chatContainerRef}>
         {conversation.map((item, index) => (
           <div key={index}>
@@ -67,7 +67,7 @@ export default function ChatRoom() {
       <div className="fixed flex items-center justify-center w-full p-4 bottom-4">
         <input
           type="text"
-          className="input input-bordered w-[50%] m-3"
+          className="input input-bordered input-primary w-[50%] m-3"
           value={inputMsg}
           onChange={(e) => setInputMsg(e.target.value)}
           onKeyPress={(e) => {
