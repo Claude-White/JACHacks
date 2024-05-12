@@ -4,7 +4,6 @@ import * as Clerk from "@clerk/elements/common";
 import * as SignUp from "@clerk/elements/sign-up";
 import { SignInButton } from "@clerk/nextjs";
 import { FaGithub } from "react-icons/fa6";
-
 export default function SignUpPage() {
   return (
     <>

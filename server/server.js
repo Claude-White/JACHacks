@@ -18,8 +18,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client/public")));
 
-app.get("/message/:msg", async (req, res) => {
+app.get("/message/:class/:username/:msg", async (req, res) => {
   const inputMsg = req.params.msg;
+  const username = req.params.username;
+  const className = req.params.class;
 
   const completion = await openai.chat.completions.create({
     messages: [{ role: "user", content: inputMsg }],
@@ -34,18 +36,22 @@ app.get("/message/:msg", async (req, res) => {
     messageDate: new Date().toLocaleString(),
   };
 
-  fs.readFile("data/conversation.json", "utf8", (err, data) => {
+  fs.readFile(`data/user/${username}_conversations.json`, "utf8", (err, data) => {
     if (err) {
       throw err;
     }
 
-    let conversations = [];
+    let conversations = {};
     if (data) {
       conversations = JSON.parse(data);
     }
-    conversations.push(conversation);
 
-    fs.writeFile("data/conversation.json", JSON.stringify(conversations, null, 2), (err) => {
+    if (!conversations[className]) {
+      conversations[className] = [];
+    }
+    conversations[className].push(conversation);
+
+    fs.writeFile(`data/user/${username}_conversations.json`, JSON.stringify(conversations, null, 2), (err) => {
       if (err) {
         throw err;
       }
@@ -54,14 +60,18 @@ app.get("/message/:msg", async (req, res) => {
   });
 });
 
-app.get("/conversation", (req, res) => {
-  fs.readFile("data/conversation.json", "utf8", (err, data) => {
-    if (err) {
+app.get("/conversations/:class/:username", (req, res) => {
+  const className = req.params.class;
+  const username = req.params.username;
+
+  fs.readFile(`data/user/${username}_conversations.json`, "utf8", (err, data) => {
+    if (err && err.code !== "ENOENT") {
       throw err;
     }
 
-    const conversations = data ? JSON.parse(data) : [];
-    res.json(conversations);
+    const conversations = data ? JSON.parse(data) : {};
+    const classConversations = conversations[className] || [];
+    res.json(classConversations);
   });
 });
 

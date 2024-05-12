@@ -1,10 +1,13 @@
+
+import Link from "next/link";
+
 const Nav = () => {
+
+
   return (
     <>
       <li>
-        <a href="../testing" className="block">
-          Home
-        </a>
+      <Link href="../ChatRoom?class=Computer-Science">Computer Science</Link>
       </li>
       <li>
         <a href="../testing" className="block">
