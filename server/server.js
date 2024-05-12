@@ -109,18 +109,43 @@ app.get("/generate-quiz/:class/:username", async (req, res) => {
   const className = req.params.class;
 
   let quizzes = {};
+  // try {
+  //   const data = await fs.promises.readFile(`data/user/${username}_quizzes.json`, "utf8");
+  //   quizzes = JSON.parse(data);
+  // } catch (err) {
+  //   if (err.code === "ENOENT") {
+  //     quizzes = {};
+  //   } else {
+  //     throw err;
+  //   }
+  // }
+  // if (!quizzes[className]) {
+  //   quizzes[className] = [];
+  // }
+
+  let conversations = {};
   try {
-    const data = await fs.promises.readFile(`data/user/${username}_quizzes.json`, "utf8");
-    quizzes = JSON.parse(data);
+    const data = await fs.promises.readFile(
+      `data/user/${username}_conversations.json`,
+      "utf8"
+    );
+    conversations = JSON.parse(data);
   } catch (err) {
     if (err.code === "ENOENT") {
-      quizzes = {};
+      conversations = {};
     } else {
       throw err;
     }
   }
-  if (!quizzes[className]) {
-    quizzes[className] = [];
+
+  let formattedConversations = "None";
+
+  if (conversations[className]) {
+    formattedConversations = conversations[className]
+      .map((convo) => `INPUT: "${convo.input}", OUTPUT: "${convo.output}"`)
+      .join("; ");
+  } else {
+    conversations[className] = [];
   }
 
   const context = `Your task is to create a quiz for ${className}. [{"Type":"SA","Question":"What is the largest planet in our solar system?","Answer":"Jupiter"},{"Type":"MC","Question":"What is the capital of France?","Options":[{"Answer":"Paris","Correct":true},{"Answer":"London","Correct":false},{"Answer":"Berlin","Correct":false},{"Answer":"Madrid","Correct":false}]}]
@@ -129,18 +154,23 @@ app.get("/generate-quiz/:class/:username", async (req, res) => {
     messages: [{ role: "user", content: context }],
     model: "gpt-3.5-turbo",
   });
-  const aiReply = completion.choices[0].message.content;
-  const regex = /```json([\s\S]+?)```/;
-  const match = aiReply.match(regex);
-  const quizData = JSON.parse(match[1]);
-  quizzes[className].push(...quizData);
-  try {
-    await fs.promises.writeFile(`data/user/${username}_quizzes.json`, JSON.stringify(quizzes, null, 2));
-  } catch (err) {
-    throw err;
-  }
+  const aiReply = JSON.parse(completion.choices[0].message.content);
+  res.json(aiReply);
+  //quizzes[className].push(...quizData);
+  // try {
+  //   await fs.promises.writeFile(
+  //     `data/user/${username}_quizzes.json`,
+  //     JSON.stringify(quizzes, null, 2)
+  //   );
+  // } catch (err) {
+  //   throw err;
+  // }
 
-  res.json({ success: true, message: "Quiz generated and saved successfully.", filename: `${username}_quizzes.json` });
+  // res.json({
+  //   success: true,
+  //   message: "Quiz generated and saved successfully.",
+  //   filename: `${username}_quizzes.json`,
+  // });
 });
 
 app.listen(port, () => {
