@@ -134,10 +134,10 @@ app.get("/generate-quiz/:class/:username", async (req, res) => {
   }
 
   const context = `Your task is to create a quiz for ${className}. [{"Type":"SA","Question":"What is the largest planet in our solar system?","Answer":"Jupiter"},{"Type":"MC","Question":"What is the capital of France?","Options":[{"Answer":"Paris","Correct":true},{"Answer":"London","Correct":false},{"Answer":"Berlin","Correct":false},{"Answer":"Madrid","Correct":false}]}]
-  Give me 5 questions based on the following information formated like the json above but do not give me the same questions as the examples above, it is very important not to included any text other that the json: ${formattedConversations}`;
+  Give me 5 questions based on the following information formated like the json above but do not give me the same questions as the examples above, it is very important not to included any text other that the json and that you dont ouput markdown syntax: ${formattedConversations}`;
   const completion = await openai.chat.completions.create({
     messages: [{ role: "user", content: context }],
-    model: "gpt-3.5-turbo",
+    model: "gpt-4-turbo",
   });
 
   const aiReply = JSON.parse(completion.choices[0].message.content);
@@ -150,7 +150,7 @@ app.get("/validate-answers/:question/:answer", async (req, res) => {
   const inputMsg = `Give a yes or no response to the following: Given this question: "${question}" is the following answer correct: "${answer}"`;
   const completion = await openai.chat.completions.create({
     messages: [{ role: "user", content: inputMsg }],
-    model: "gpt-3.5-turbo",
+    model: "gpt-4-turbo",
   });
 
   const aiReply = completion.choices[0].message.content;

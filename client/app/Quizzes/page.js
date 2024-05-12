@@ -9,8 +9,8 @@ export default function page() {
   const searchParams = useSearchParams();
   const className = searchParams.get("class");
   const [quiz, setQuiz] = useState([]);
-  const [numCorrect, setnumCorrect] = useState(0);
-  const [result, setResult] = useState(0);
+  const [numCorrect, setNumCorrect] = useState(0);
+  const [finalResult, setFinalResult] = useState("");
   let formatedClassName = "";
   if (className == "Computer-Science") {
     formatedClassName = "Computer Science";
@@ -51,16 +51,14 @@ export default function page() {
       )
         .then((res) => res.text())
         .then((data) => {
-          console.log(data);
-          if (data == "yes") {
-            setnumCorrect(numCorrect + 1);
+          console.log(data.toLowerCase());
+          if (data.toLowerCase().includes("yes")) {
+            setNumCorrect(numCorrect + 1);
           }
         });
     });
-    setResult(numCorrect / submittedAnswers.length);
+    setFinalResult((numCorrect / submittedAnswers.length).toString());
   };
-
-  function validateAnswers() {}
 
   return (
     <main className="h-full bg-base-300">
@@ -93,7 +91,6 @@ export default function page() {
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
-          {numCorrect ? <div>{result}%</div> : <div></div>}
         </form>
       </div>
     </main>
