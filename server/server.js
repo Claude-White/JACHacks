@@ -31,6 +31,7 @@ app.get("/message/:msg", async (req, res) => {
   const conversation = {
     input: inputMsg,
     output: aiReply,
+    messageDate: new Date().toLocaleString(),
   };
 
   fs.readFile("data/conversation.json", "utf8", (err, data) => {

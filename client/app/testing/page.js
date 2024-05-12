@@ -38,17 +38,19 @@ export default function Home() {
         <div className="drawer-content flex flex-col">
           <Header />
           <div
-            className="chat-container bg-gray-700 text-white p-4 mx-10"
+            className="chat-container bg-gray-700 text-white p-4 mx-10 min-h-[80vh] overflow-y-auto"
             ref={chatContainerRef}>
             {conversation.map((item, index) => (
               <div key={index}>
                 
                 <div className="chat chat-end">
                 <div className="chat-bubble p-4 my-6">{item.input}</div>
+                {item.messageDate}
                 </div>
 
                 <div className="chat chat-start">
                  <div className="chat-bubble p-4">{item.output}</div>
+                 {item.messageDate}
                 </div>
 
               </div>
