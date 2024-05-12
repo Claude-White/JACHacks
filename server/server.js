@@ -35,8 +35,11 @@ app.get("/message/:class/:username/:msg", async (req, res) => {
     }
   }
 
-  const formattedConversations = conversations[className].map((convo) => `INPUT: "${convo.input}", OUTPUT: "${convo.output}"`).join("; ");
+  const formattedConversations = "none";
 
+  if (conversations[className]) {
+    formattedConversations = conversations[className].map((convo) => `INPUT: "${convo.input}", OUTPUT: "${convo.output}"`).join("; ");
+  }
   const context = `Your duty is to be a teacher of ${className}. You will answer all questions that the user has and also make sure to explain the subjects at an intermediate level for the ${className} subject.\n Here is all of your previous conversations: ${formattedConversations}`;
 
   const completion = await openai.chat.completions.create({
@@ -50,6 +53,7 @@ app.get("/message/:class/:username/:msg", async (req, res) => {
   const aiReply = completion.choices[0].message.content;
 
   conversations[className].push({ input: inputMsg, output: aiReply, messageDate: new Date().toLocaleString() });
+  
   try {
     await fs.promises.writeFile(`data/user/${username}_conversations.json`, JSON.stringify(conversations, null, 2));
   } catch (err) {

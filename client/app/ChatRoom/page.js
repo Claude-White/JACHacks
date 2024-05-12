@@ -15,12 +15,6 @@ export default function ChatRoom() {
 
   useEffect(() => {
     if (isLoaded && user && className) {
-      console.log("111111111111111111111111")
-      console.log("className: " + className)
-      console.log("user: " + user)
-
-      console.log("username: " + user.username)
-
       fetch(`http://localhost:8888/conversations/${className}/${user.username}`)
         .then((res) => res.json())
         .then((data) => {
@@ -48,7 +42,7 @@ export default function ChatRoom() {
     <main className="h-screen">
     <Header />
     <header className="bg-base-100">
-      <h1>njuk</h1>
+      <h1>EASTER EGG 2</h1>
     </header>
     <div
         className="chat-container bg-gray-700 text-white p-4 mx-10 min-h-[80vh]"
