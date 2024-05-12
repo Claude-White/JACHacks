@@ -15,11 +15,11 @@ export default function ChatRoom() {
 
   useEffect(() => {
     if (isLoaded && user && className) {
-      console.log("111111111111111111111111")
-      console.log("className: " + className)
-      console.log("user: " + user)
+      console.log("111111111111111111111111");
+      console.log("className: " + className);
+      console.log("user: " + user);
 
-      console.log("username: " + user.username)
+      console.log("username: " + user.username);
 
       fetch(`http://localhost:8888/conversations/${className}/${user.username}`)
         .then((res) => res.json())
@@ -35,7 +35,9 @@ export default function ChatRoom() {
 
   function getMessage() {
     if (inputMsg.trim() !== "" && isLoaded && className) {
-      fetch(`http://localhost:8888/message/${className}/${user.username}/${inputMsg}`)
+      fetch(
+        `http://localhost:8888/message/${className}/${user.username}/${inputMsg}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setConversation((prevConversation) => [...prevConversation, data]);
@@ -45,44 +47,45 @@ export default function ChatRoom() {
   }
 
   return (
-    <main className="h-screen">
-    <Header />
-    <header className="bg-base-100">
-      <h1>njuk</h1>
-    </header>
-    <div
-        className="chat-container bg-gray-700 text-white p-4 mx-10 min-h-[80vh]"
+    <main className="h-full">
+      <Header />
+      <div
+        className="p-4 pt-16 mx-10 mb-32 text-white bg-gray-700 rounded-lg chat-container"
         ref={chatContainerRef}>
         {conversation.map((item, index) => (
-            <div key={index}>
-                <div className="chat chat-end grid-rows-[1fr_20px]">
-                    <div className="chat-bubble p-4 my-3">{item.input}</div>
-                    <div className="row-span-2 col-span-2 text-sm">{item.messageDate}</div>
-                </div>
-
-                <div className="chat chat-start grid-rows-[1fr_20px]">
-                    <div className="chat-bubble p-4 my-3">{item.output}</div>
-                    <div className="row-span-2 col-span-2 text-sm">{item.messageDate}</div>
-                </div>
+          <div key={index}>
+            <div className="chat chat-end grid-rows-[1fr_20px]">
+              <div className="p-4 my-3 chat-bubble">{item.input}</div>
+              <div className="col-span-2 row-span-2 text-sm">
+                {item.messageDate}
+              </div>
             </div>
+
+            <div className="chat chat-start grid-rows-[1fr_20px]">
+              <div className="p-4 my-3 chat-bubble">{item.output}</div>
+              <div className="col-span-2 row-span-2 text-sm">
+                {item.messageDate}
+              </div>
+            </div>
+          </div>
         ))}
-    </div>
-    <div className="p-4 flex justify-center items-center">
+      </div>
+      <div className="fixed flex items-center justify-center w-full p-4 bottom-4">
         <input
-            type="text"
-            className="input input-bordered w-[50%] m-3"
-            value={inputMsg}
-            onChange={(e) => setInputMsg(e.target.value)}
-            onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                    getMessage();
-                }
-            }}
+          type="text"
+          className="input input-bordered w-[50%] m-3"
+          value={inputMsg}
+          onChange={(e) => setInputMsg(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              getMessage();
+            }
+          }}
         />
         <button className="btn btn-primary" onClick={getMessage}>
-            Send
+          Send
         </button>
-    </div>
-</main>
+      </div>
+    </main>
   );
 }
