@@ -51,7 +51,11 @@ app.get("/message/:class/:username/:msg", async (req, res) => {
   if (conversations[className]) {
     formattedConversations = conversations[className].map((convo) => `INPUT: "${convo.input}", OUTPUT: "${convo.output}"`).join("; ");
   }
-  const context = `Your duty is to be a teacher of ${className}. You will answer all questions that the user has and also make sure to explain the subjects at an intermediate level for the ${className} subject.\n Here is all of your previous conversations: ${formattedConversations}`;
+  const context = `Your duty is to be a teacher of ${className}. 
+  You will answer all questions that the user has and also make sure to explain 
+  the subjects at an intermediate level for the ${className} subject.
+  YOu are only allowed to answer questions that are related to ${className}.
+  \n Here is all of your previous conversations: ${formattedConversations}`;
 
   const completion = await openai.chat.completions.create({
     messages: [

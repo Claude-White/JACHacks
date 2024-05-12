@@ -44,7 +44,7 @@ export default function ChatRoom() {
     <main className="h-full">
       <Header />
       <div
-        className="p-4 pt-16 mx-10 mb-32 text-white bg-gray-700 rounded-lg chat-container"
+        className="p-4 pt-16 mx-10 mb-32 text-white bg-gray-700 rounded-lg min-h-[88%] chat-container"
         ref={chatContainerRef}>
         {conversation.map((item, index) => (
           <div key={index}>
