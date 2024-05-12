@@ -63,8 +63,8 @@ export default function ChatRoom() {
         ref={chatContainerRef}>
         {conversation.map((item, index) => (
           <div key={index}>
-            <div className="chat relative chat-end grid-rows-[1fr_20px] grid-cols-[auto_100px]">
-            <div className="avatar col-span-2 justify-items-end absolute bottom-6">
+            <div className="chat relative chat-end grid-rows-[1fr_20px] grid-cols-[auto_70px]">
+            <div className="avatar col-span-2 justify-items-end absolute bottom-8">
               <div className="w-16 rounded-full">
                 <Image src={user.imageUrl} width={100} height={100} alt="Student" />
               </div>
@@ -76,8 +76,8 @@ export default function ChatRoom() {
             </div>
 
 
-            <div className="chat relative chat-start grid-rows-[1fr_20px] grid-cols-[100px_auto]">
-            <div className="avatar absolute bottom-6">
+            <div className="chat relative chat-start grid-rows-[1fr_20px] grid-cols-[70px_auto]">
+            <div className="avatar absolute bottom-8">
             <div className="w-16 rounded-full">
             <Image src={className == "History" ? Teach : className == "Geography" ? GeoGoat : MrMean} alt="Comp Sci Teacher" />
               </div>

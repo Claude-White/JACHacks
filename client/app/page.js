@@ -18,7 +18,7 @@ const page = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 px-20 py-10">
         <Link href="/ChatRoom?class=Computer-Science">
           <div className="min-h-full card bg-base-100 shadow-xl">
-            <div className="card-image relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
+            <div className="rounded-t-2xl card-image relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
               <Image src={MrMean} alt="Comp Sci Teacher" />
             </div>
             <div className="card-body bg-blue-500 rounded-b-[20px] text-white">
@@ -31,7 +31,7 @@ const page = () => {
 
         <Link href="/ChatRoom?class=History">
           <div className="min-h-full card bg-base-100 shadow-xl">
-            <div className="card-image relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
+          <div className="rounded-t-2xl card-image relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
               <Image src={Teach} alt="History Teacher" />
             </div>
             <div className="card-body bg-red-500 rounded-b-[20px] text-white">
@@ -44,7 +44,7 @@ const page = () => {
 
         <Link href="/ChatRoom?class=Geography">
           <div className="min-h-full card bg-base-100 shadow-xl">
-            <div className="card-image relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
+          <div className="rounded-t-2xl card-image relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
               <Image src={GeoGoat} alt="Geography Teacher" />
             </div>
             <div className="card-body bg-green-500 rounded-b-[20px] text-white">
