@@ -20,7 +20,7 @@ const page = () => {
       <div className="grid grid-cols-1 gap-20 px-20 py-10 md:grid-cols-2 lg:grid-cols-3">
         <div className="min-h-full shadow-xl card bg-base-100">
           <div
-            className="relative overflow-hidden card-image"
+            className="rounded-t-[20px] relative overflow-hidden card-image"
             style={{ aspectRatio: "16/9" }}>
             <Image src={MrMean} alt="Comp Sci Teacher" />
           </div>
@@ -46,7 +46,7 @@ const page = () => {
 
         <div className="min-h-full shadow-xl card bg-base-100">
           <div
-            className="relative overflow-hidden card-image"
+            className="rounded-t-[20px] relative overflow-hidden card-image"
             style={{ aspectRatio: "16/9" }}>
             <Image src={Teach} alt="History Teacher" />
           </div>
@@ -74,7 +74,7 @@ const page = () => {
 
         <div className="min-h-full shadow-xl card bg-base-100">
           <div
-            className="relative overflow-hidden card-image"
+            className="rounded-t-[20px] relative overflow-hidden card-image"
             style={{ aspectRatio: "16/9" }}>
             <Image src={GeoGoat} alt="Geography Teacher" />
           </div>
