@@ -104,6 +104,45 @@ app.get("/conversations/:class/:username", (req, res) => {
   );
 });
 
+app.get("/generate-quiz/:class/:username", async (req, res) => {
+  const username = req.params.username;
+  const className = req.params.class;
+
+  let quizzes = {};
+  try {
+    const data = await fs.promises.readFile(`data/user/${username}_quizzes.json`, "utf8");
+    quizzes = JSON.parse(data);
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      quizzes = {};
+    } else {
+      throw err;
+    }
+  }
+  if (!quizzes[className]) {
+    quizzes[className] = [];
+  }
+
+  const context = `Your task is to create a quiz for ${className}. [{"Type":"SA","Question":"What is the largest planet in our solar system?","Answer":"Jupiter"},{"Type":"MC","Question":"What is the capital of France?","Options":[{"Answer":"Paris","Correct":true},{"Answer":"London","Correct":false},{"Answer":"Berlin","Correct":false},{"Answer":"Madrid","Correct":false}]}]
+  Give me 5 questions based on the following information formated like the json above but do not give me the same questions as the examples above: ${formattedConversations}`;
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: "user", content: context }],
+    model: "gpt-3.5-turbo",
+  });
+  const aiReply = completion.choices[0].message.content;
+  const regex = /```json([\s\S]+?)```/;
+  const match = aiReply.match(regex);
+  const quizData = JSON.parse(match[1]);
+  quizzes[className].push(...quizData);
+  try {
+    await fs.promises.writeFile(`data/user/${username}_quizzes.json`, JSON.stringify(quizzes, null, 2));
+  } catch (err) {
+    throw err;
+  }
+
+  res.json({ success: true, message: "Quiz generated and saved successfully.", filename: `${username}_quizzes.json` });
+});
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
