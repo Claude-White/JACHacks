@@ -25,10 +25,7 @@ app.get("/message/:class/:username/:msg", async (req, res) => {
 
   let conversations = {};
   try {
-    const data = await fs.promises.readFile(
-      `data/user/${username}_conversations.json`,
-      "utf8"
-    );
+    const data = await fs.promises.readFile(`data/user/${username}_conversations.json`, "utf8");
     conversations = JSON.parse(data);
   } catch (err) {
     if (err.code === "ENOENT") {
@@ -41,9 +38,7 @@ app.get("/message/:class/:username/:msg", async (req, res) => {
   let formattedConversations = "None";
 
   if (conversations[className]) {
-    formattedConversations = conversations[className]
-      .map((convo) => `INPUT: "${convo.input}", OUTPUT: "${convo.output}"`)
-      .join("; ");
+    formattedConversations = conversations[className].map((convo) => `INPUT: "${convo.input}", OUTPUT: "${convo.output}"`).join("; ");
   } else {
     conversations[className] = [];
   }
@@ -51,10 +46,9 @@ app.get("/message/:class/:username/:msg", async (req, res) => {
   if (conversations[className]) {
     formattedConversations = conversations[className].map((convo) => `INPUT: "${convo.input}", OUTPUT: "${convo.output}"`).join("; ");
   }
-  const context = `Your duty is to be a teacher of ${className}. 
-  You will answer all questions that the user has and also make sure to explain 
-  the subjects at an intermediate level for the ${className} subject.
-  YOu are only allowed to answer questions that are related to ${className}.
+  const context = `Your duty is to be a teacher of ${className}. You will answer all questions that the user has and also make sure to explain the subjects at an intermediate level for the ${className} subject. 
+  You are not allowed to answer questions outside of ${className} topics. There are actually three ai teachers on the website and you are one of them. They include History, Computer Science, and Geography. 
+  If they want to learn about either of the teachers specialized subjects, recommend them the proper ai teacher in the website if it is not the current subject being taught. 
   \n Here is all of your previous conversations: ${formattedConversations}`;
 
   const completion = await openai.chat.completions.create({
@@ -73,10 +67,7 @@ app.get("/message/:class/:username/:msg", async (req, res) => {
     messageDate: new Date().toLocaleString(),
   });
   try {
-    await fs.promises.writeFile(
-      `data/user/${username}_conversations.json`,
-      JSON.stringify(conversations, null, 2)
-    );
+    await fs.promises.writeFile(`data/user/${username}_conversations.json`, JSON.stringify(conversations, null, 2));
   } catch (err) {
     throw err;
   }
@@ -92,19 +83,15 @@ app.get("/conversations/:class/:username", (req, res) => {
     fs.writeFileSync(`data/user/${username}_conversations.json`, "{}");
   }
 
-  fs.readFile(
-    `data/user/${username}_conversations.json`,
-    "utf8",
-    (err, data) => {
-      if (err) {
-        throw err;
-      }
-
-      const conversations = data ? JSON.parse(data) : {};
-      const classConversations = conversations[className] || [];
-      res.json(classConversations);
+  fs.readFile(`data/user/${username}_conversations.json`, "utf8", (err, data) => {
+    if (err) {
+      throw err;
     }
-  );
+
+    const conversations = data ? JSON.parse(data) : {};
+    const classConversations = conversations[className] || [];
+    res.json(classConversations);
+  });
 });
 
 app.listen(port, () => {

@@ -67,7 +67,7 @@ export default function ChatRoom() {
       <div className="fixed flex items-center justify-center w-full p-4 bottom-4">
         <input
           type="text"
-          className="input input-bordered w-[50%] m-3"
+          className="input input-bordered input-primary w-[50%] m-3"
           value={inputMsg}
           onChange={(e) => setInputMsg(e.target.value)}
           onKeyPress={(e) => {
