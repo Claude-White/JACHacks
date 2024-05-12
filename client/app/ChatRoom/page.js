@@ -44,9 +44,7 @@ export default function ChatRoom() {
   function getMessage() {
     if (inputMsg.trim() !== "" && isLoaded && className) {
       setNumConversation(numConversation + 1);
-      fetch(
-        `http://localhost:8888/message/${className}/${user.username}/${inputMsg}`
-      )
+      fetch(`http://localhost:8888/message/${className}/${user.username}/${inputMsg}`)
         .then((res) => res.json())
         .then((data) => {
           setConversation((prevConversation) => [...prevConversation, data]);
@@ -58,34 +56,38 @@ export default function ChatRoom() {
   return (
     <main className="h-full">
       <Header />
-      <div
-        className="p-4 pt-16 mx-10 mb-32 text-white bg-gray-700 rounded-lg min-h-[88%] chat-container"
-        ref={chatContainerRef}>
+      <div className="p-4 pt-16 mx-10 mb-32 text-white bg-gray-700 rounded-lg min-h-[88%] chat-container" ref={chatContainerRef}>
+        <div className="chat relative chat-start grid-rows-[1fr_20px] grid-cols-[70px_auto]">
+          <div className="avatar absolute bottom-8">
+            <div className="w-16 rounded-full">
+              <Image src={className == "History" ? Teach : className == "Geography" ? GeoGoat : MrMean} alt="Comp Sci Teacher" />
+            </div>
+          </div>
+          <div className="p-4 my-3 chat-bubble max-w-[50%]">
+            Hello, I am your {className} Teacher. Ask me anything about {className}!
+          </div>
+        </div>
+
         {conversation.map((item, index) => (
           <div key={index}>
             <div className="chat relative chat-end grid-rows-[1fr_20px] grid-cols-[auto_70px]">
-            <div className="avatar col-span-2 justify-items-end absolute bottom-8">
-              <div className="w-16 rounded-full">
-                <Image src={user.imageUrl} width={100} height={100} alt="Student" />
+              <div className="avatar col-span-2 justify-items-end absolute bottom-8">
+                <div className="w-16 rounded-full">
+                  <Image src={user.imageUrl} width={100} height={100} alt="Student" />
+                </div>
               </div>
-            </div>
               <div className="p-4 my-3 chat-bubble max-w-[50%]">{item.input}</div>
-              <div className="col-span-2 row-span-2 text-sm">
-                {item.messageDate}
-              </div>
+              <div className="col-span-2 row-span-2 text-sm">{item.messageDate}</div>
             </div>
-
 
             <div className="chat relative chat-start grid-rows-[1fr_20px] grid-cols-[70px_auto]">
-            <div className="avatar absolute bottom-8">
-            <div className="w-16 rounded-full">
-            <Image src={className == "History" ? Teach : className == "Geography" ? GeoGoat : MrMean} alt="Comp Sci Teacher" />
+              <div className="avatar absolute bottom-8">
+                <div className="w-16 rounded-full">
+                  <Image src={className == "History" ? Teach : className == "Geography" ? GeoGoat : MrMean} alt="Comp Sci Teacher" />
+                </div>
               </div>
-            </div>
               <div className="p-4 my-3 chat-bubble max-w-[50%]">{item.output}</div>
-              <div className="col-span-2 row-span-2 text-sm">
-                {item.messageDate}
-              </div>
+              <div className="col-span-2 row-span-2 text-sm">{item.messageDate}</div>
             </div>
           </div>
         ))}
@@ -93,9 +95,7 @@ export default function ChatRoom() {
       <div className="fixed flex items-center justify-center w-full p-4 bottom-4">
         {canQuiz ? (
           <Link href={`/Quizzes?class=${className}`}>
-            <button className="w-32 shadow-md btn btn-secondary">
-              Start Test
-            </button>
+            <button className="w-32 shadow-md btn btn-secondary">Start Test</button>
           </Link>
         ) : (
           <button className="w-32 shadow-md btn btn-secondary" disabled>
