@@ -16,7 +16,7 @@ const Header = () => {
           <FaBars size={28} />
         </label>
         <h1 className="text-4xl">
-          <Link href="/">Kahoot But Worse</Link>
+          <Link href="/">OmniBox</Link>
         </h1>
       </div>
       <SignedOut>

@@ -5,6 +5,10 @@ import Nav from "@/app/components/Nav";
 import { useUser } from "@clerk/clerk-react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import MrMean from "@/app/media/MrMean.jpg";
+import Teach from "@/app/media/Teach.jpg";
+import GeoGoat from "@/app/media/GeoGoat.jpg";
 
 export default function ChatRoom() {
   const searchParams = useSearchParams();
@@ -59,15 +63,26 @@ export default function ChatRoom() {
         ref={chatContainerRef}>
         {conversation.map((item, index) => (
           <div key={index}>
-            <div className="chat chat-end grid-rows-[1fr_20px]">
-              <div className="p-4 my-3 chat-bubble">{item.input}</div>
+            <div className="chat relative chat-end grid-rows-[1fr_20px] grid-cols-[auto_100px]">
+            <div className="avatar col-span-2 justify-items-end absolute bottom-6">
+              <div className="w-16 rounded-full">
+                <Image src={user.imageUrl} width={100} height={100} alt="Student" />
+              </div>
+            </div>
+              <div className="p-4 my-3 chat-bubble max-w-[50%]">{item.input}</div>
               <div className="col-span-2 row-span-2 text-sm">
                 {item.messageDate}
               </div>
             </div>
 
-            <div className="chat chat-start grid-rows-[1fr_20px]">
-              <div className="p-4 my-3 chat-bubble">{item.output}</div>
+
+            <div className="chat relative chat-start grid-rows-[1fr_20px] grid-cols-[100px_auto]">
+            <div className="avatar absolute bottom-6">
+            <div className="w-16 rounded-full">
+            <Image src={className == "History" ? Teach : className == "Geography" ? GeoGoat : MrMean} alt="Comp Sci Teacher" />
+              </div>
+            </div>
+              <div className="p-4 my-3 chat-bubble max-w-[50%]">{item.output}</div>
               <div className="col-span-2 row-span-2 text-sm">
                 {item.messageDate}
               </div>
