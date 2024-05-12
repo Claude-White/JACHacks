@@ -13,6 +13,7 @@ import GeoGoat from "@/app/media/GeoGoat.jpg";
 export default function ChatRoom() {
   const searchParams = useSearchParams();
   const className = searchParams.get("class");
+  const difLevel = searchParams.get("dif");
   const { isSignedIn, user, isLoaded } = useUser();
   const [inputMsg, setInputMsg] = useState("");
   const [conversation, setConversation] = useState([]);
@@ -45,7 +46,7 @@ export default function ChatRoom() {
     if (inputMsg.trim() !== "" && isLoaded && className) {
       setNumConversation(numConversation + 1);
       fetch(
-        `http://localhost:8888/message/${className}/${user.username}/${inputMsg}`
+        `http://localhost:8888/message/${className}/${difLevel}/${user.username}/${inputMsg}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -64,25 +65,42 @@ export default function ChatRoom() {
         {conversation.map((item, index) => (
           <div key={index}>
             <div className="chat relative chat-end grid-rows-[1fr_20px] grid-cols-[auto_100px]">
-            <div className="avatar col-span-2 justify-items-end absolute bottom-6">
-              <div className="w-16 rounded-full">
-                <Image src={user.imageUrl} width={100} height={100} alt="Student" />
+              <div className="absolute col-span-2 avatar justify-items-end bottom-6">
+                <div className="w-16 rounded-full">
+                  <Image
+                    src={user.imageUrl}
+                    width={100}
+                    height={100}
+                    alt="Student"
+                  />
+                </div>
               </div>
-            </div>
-              <div className="p-4 my-3 chat-bubble max-w-[50%]">{item.input}</div>
+              <div className="p-4 my-3 chat-bubble max-w-[50%]">
+                {item.input}
+              </div>
               <div className="col-span-2 row-span-2 text-sm">
                 {item.messageDate}
               </div>
             </div>
 
-
             <div className="chat relative chat-start grid-rows-[1fr_20px] grid-cols-[100px_auto]">
-            <div className="avatar absolute bottom-6">
-            <div className="w-16 rounded-full">
-            <Image src={className == "History" ? Teach : className == "Geography" ? GeoGoat : MrMean} alt="Comp Sci Teacher" />
+              <div className="absolute avatar bottom-6">
+                <div className="w-16 rounded-full">
+                  <Image
+                    src={
+                      className == "History"
+                        ? Teach
+                        : className == "Geography"
+                        ? GeoGoat
+                        : MrMean
+                    }
+                    alt="Comp Sci Teacher"
+                  />
+                </div>
               </div>
-            </div>
-              <div className="p-4 my-3 chat-bubble max-w-[50%]">{item.output}</div>
+              <div className="p-4 my-3 chat-bubble max-w-[50%]">
+                {item.output}
+              </div>
               <div className="col-span-2 row-span-2 text-sm">
                 {item.messageDate}
               </div>
