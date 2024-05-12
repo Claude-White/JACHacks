@@ -23,41 +23,40 @@ app.get("/message/:class/:username/:msg", async (req, res) => {
   const username = req.params.username;
   const className = req.params.class;
 
+  let conversations = {};
+  try {
+    const data = await fs.promises.readFile(`data/user/${username}_conversations.json`, "utf8");
+    conversations = JSON.parse(data);
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      conversations = {};
+    } else {
+      throw err;
+    }
+  }
+
+  const formattedConversations = conversations[className].map((convo) => `INPUT: "${convo.input}", OUTPUT: "${convo.output}"`).join("; ");
+
+  const context = `Your duty is to be a teacher of ${className}. You will answer all questions that the user has and also make sure to explain the subjects at an intermediate level for the ${className} subject.\n Here is all of your previous conversations: ${formattedConversations}`;
+
   const completion = await openai.chat.completions.create({
-    messages: [{ role: "user", content: inputMsg }],
+    messages: [
+      { role: "system", content: context },
+      { role: "user", content: inputMsg },
+    ],
     model: "gpt-3.5-turbo",
   });
 
   const aiReply = completion.choices[0].message.content;
 
-  const conversation = {
-    input: inputMsg,
-    output: aiReply,
-    messageDate: new Date().toLocaleString(),
-  };
+  conversations[className].push({ input: inputMsg, output: aiReply, messageDate: new Date().toLocaleString() });
+  try {
+    await fs.promises.writeFile(`data/user/${username}_conversations.json`, JSON.stringify(conversations, null, 2));
+  } catch (err) {
+    throw err;
+  }
 
-  fs.readFile(`data/user/${username}_conversations.json`, "utf8", (err, data) => {
-    if (err) {
-      throw err;
-    }
-
-    let conversations = {};
-    if (data) {
-      conversations = JSON.parse(data);
-    }
-
-    if (!conversations[className]) {
-      conversations[className] = [];
-    }
-    conversations[className].push(conversation);
-
-    fs.writeFile(`data/user/${username}_conversations.json`, JSON.stringify(conversations, null, 2), (err) => {
-      if (err) {
-        throw err;
-      }
-      res.json(conversation);
-    });
-  });
+  res.json({ input: inputMsg, output: aiReply });
 });
 
 app.get("/conversations/:class/:username", (req, res) => {
