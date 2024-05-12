@@ -4,6 +4,7 @@ import Header from "@/app/components/Header";
 import Nav from "@/app/components/Nav";
 import { useUser } from "@clerk/clerk-react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function ChatRoom() {
   const searchParams = useSearchParams();
@@ -11,7 +12,9 @@ export default function ChatRoom() {
   const { isSignedIn, user, isLoaded } = useUser();
   const [inputMsg, setInputMsg] = useState("");
   const [conversation, setConversation] = useState([]);
+  const [numConversation, setNumConversation] = useState(0);
   const chatContainerRef = useRef(null);
+  const [canQuiz, setCanQuiz] = useState(false);
 
   useEffect(() => {
     if (isLoaded && user && className) {
@@ -19,9 +22,16 @@ export default function ChatRoom() {
         .then((res) => res.json())
         .then((data) => {
           setConversation(data);
+          setNumConversation(data.length);
         });
     }
   }, [isLoaded, user, className]);
+
+  useEffect(() => {
+    if (numConversation >= 5) {
+      setCanQuiz(true);
+    }
+  }, [conversation]);
 
   useEffect(() => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -29,6 +39,7 @@ export default function ChatRoom() {
 
   function getMessage() {
     if (inputMsg.trim() !== "" && isLoaded && className) {
+      setNumConversation(numConversation + 1);
       fetch(
         `http://localhost:8888/message/${className}/${user.username}/${inputMsg}`
       )
@@ -65,6 +76,17 @@ export default function ChatRoom() {
         ))}
       </div>
       <div className="fixed flex items-center justify-center w-full p-4 bottom-4">
+        {canQuiz ? (
+          <Link href={`/Quizzes?class=${className}`}>
+            <button className="w-32 shadow-md btn btn-secondary">
+              Start Test
+            </button>
+          </Link>
+        ) : (
+          <button className="w-32 shadow-md btn btn-secondary" disabled>
+            Start Test
+          </button>
+        )}
         <input
           type="text"
           className="input input-bordered input-primary w-[50%] m-3"
